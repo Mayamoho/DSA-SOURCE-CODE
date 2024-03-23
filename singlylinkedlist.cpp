@@ -3,6 +3,7 @@ using namespace std;
 //A node is nothing but a self referential structure.
 //Self referential structure is a structure which refers itself
 //creating a singly linked list;
+struct ll{
 struct node{
     int data;
     node* link;
@@ -10,12 +11,14 @@ struct node{
 //Inserting a node at the beginning(O(1)==constant time algorithm)
 //creating a singly linked list
 node* head = NULL;
+node* tail = NULL;
 void samnejogkori(int data){
-    node* temp = (node*)malloc(sizeof(node));
+    node* temp = new node();
     temp-> data = data;
     temp-> link = NULL;
     if(head==NULL){
         head = temp;
+        tail = temp;
         return;
     }
     else{
@@ -29,31 +32,37 @@ void pichonejogkori(int data){
     node* temp = (node*)malloc(sizeof(node));
     temp-> data = data;
     temp-> link = NULL;
-    node* ptr = head;
-    while(ptr-> link != NULL){
-        ptr = ptr-> link;
+    if(head == NULL){
+    head = temp;
+    tail = temp;
+    return;
     }
-    ptr-> link = temp;
+    else{
+        tail-> link = temp;
+        tail = tail-> link;
+    }
 }
 //insert node at a specific position
 void jekonojaygayjogkori(int index, int val) {
-        node* ptr = (node*)malloc(sizeof(node));
-        ptr-> data = val;
-        ptr-> link = NULL;
-        node* temp = head;
+        node* temp = (node*)malloc(sizeof(node));
+        temp-> data = val;
+        temp-> link = NULL;
+        node* ptr = head;
         for(int i=0; i<index-1; i++)
-            temp = temp-> link;
-        ptr-> link = temp-> link;
-        temp-> link = ptr;
+            ptr = ptr-> link;
+            temp-> link = ptr-> link;
+            ptr-> link = temp;
     }
 //deleting the first node
 void samnethekebaaddei(){
    if(head==NULL){
       cout << "Linked list is empty\n";
    }
-   else if(head-> link == NULL){
+   else if(head == tail){
       free(head);
       head = NULL;
+      tail = NULL;
+      return;
    }
    else{
     node* temp = head;
@@ -80,16 +89,17 @@ void pichonthekebaaddei(){
    node* ptr = head;
    if(head==NULL)
    cout << "Linked list is empty\n";
-   else if(head-> link == NULL){
+   else if(head == tail){
       free(head);
       head = NULL;
+      tail = NULL;
+      return;
    }
    else{
-      while(ptr-> link-> link!=NULL){
-         ptr = ptr-> link;
-      }
-      free(ptr-> link);
-      ptr-> link = NULL;
+      node* temp = tail;
+      tail = tail-> link;
+      free(temp);
+      temp = NULL;
    }
 }
 //deleting node at a specific position
@@ -122,7 +132,7 @@ int elementguni(){
     }
     node* ptr = head;
     int count=0;
-    while(ptr!=NULL){
+    while(ptr){
         count++;
         ptr = ptr-> link;
     }
@@ -134,7 +144,7 @@ void printkori(){
         cout << "Linked list is empty\n";
     }
     node* ptr = head;
-    while(ptr!=NULL){
+    while(ptr){
         cout << ptr-> data << ' ';
         ptr= ptr-> link;
     }
@@ -158,7 +168,7 @@ void dekheideletekoredibo(){
     }
     else{
         node* ptr = head;
-        while(ptr!=NULL){
+        while(ptr){
             ptr = ptr-> link;
             free(head);
             head = ptr;
@@ -179,7 +189,27 @@ void ultefellum(){
     }
     head = prev;
 }
-    
+//inserting element in a sorted list
+void sundorkorejogkori(int data){
+    node* temp = (node*)malloc(sizeof(node));
+    temp-> data = data;
+    temp-> link = NULL;
+    int key = data;
+    //This part resembles insertion at the beginning
+    if(head == NULL || head-> data >key){
+    temp-> link = head;
+    head = temp;
+}
+    else{
+        node* ptr = head;
+        //This part resembles insertion at specific position including the end of linked list
+        while(ptr-> link!=NULL && ptr-> link -> data <key)
+            ptr = ptr-> link;
+            temp-> link = ptr-> link;
+            ptr-> link = temp;
+    }
+}
+};  
     int main(){
     samnejogkori(98);
     samnejogkori(81);
@@ -204,4 +234,13 @@ void ultefellum(){
     dekheideletekoredibo();
     cout << elementguni() << endl;
     printkori();
+    pichonejogkori(1);
+    pichonejogkori(2);
+    pichonejogkori(3);
+    pichonejogkori(4);
+    pichonejogkori(6);
+    sundorkorejogkori(0);
+    cout << elementguni() << endl;
+    printkori();
+
 }
