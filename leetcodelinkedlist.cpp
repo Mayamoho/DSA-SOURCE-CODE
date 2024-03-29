@@ -10,19 +10,19 @@ struct node{
 //inserting element in descending order
 node* head = NULL;
 void insert(int co, int ex){
-    node* temp = (node*)malloc(sizeof(node));
+    node* temp = new node();
     temp-> co = co;
     temp-> ex = ex;
     temp-> link = NULL;
     int key = ex;
-    if(head == NULL || head-> ex <key){
+    if(head == NULL || head-> ex < key){
     temp-> link = head;
     head = temp;
 }
     else{
         node* ptr = head;
         //This part resembles insertion at specific position including the end of linked list
-        while(ptr-> link!=NULL && ptr-> link -> ex >key)
+        while(ptr-> link!=NULL && ptr-> link -> ex > key)
             ptr = ptr-> link;
             temp-> link = ptr-> link;
             ptr-> link = temp;
@@ -34,13 +34,13 @@ void print(){
     cout << "Polynomial is empty\n";
     else{
         node* ptr = head;
-        while(ptr!=NULL){
+        while(ptr){
             if(ptr-> ex!=0)
             cout << ptr-> co << "x^" << ptr-> ex;
             else
             cout << ptr-> co;
             ptr = ptr-> link;
-            if(ptr!=NULL)
+            if(ptr)
             cout << "+";
             else
             cout << "\n";
@@ -75,18 +75,17 @@ int main(){
 /*class Solution {
 public:
     ListNode* removeElements(ListNode* head, int x) {
-        ListNode* dummy = new ListNode();
-        dummy-> next = head;
-        ListNode* ptr = dummy;
-        while(ptr-> next){
-        if(ptr-> next->val == x){
-         ptr->  next = ptr->  next->  next;
+        ListNode* ptr = head; 
+       if(head-> val == x)
+       head = head-> next;
+       while(ptr->next){
+      if(ptr->next->val == x){
+         ptr-> next = ptr-> next->next;
+         break;
       }
-      else
-      ptr = ptr->  next;
+      ptr = ptr-> next;
    }
-      return dummy-> next;
-    }
+    return head;
 };*/
 /**
  * //3. Remove duplicates from sorted linked list
@@ -170,3 +169,95 @@ public:
         temp-> next = ptr1;
         return ptr-> next;
 }*/
+// 6. Check if a linked list is palindrome
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+/*class Solution {
+public:
+    bool isPalindrome(ListNode* head) {
+        //finding the middle node
+        ListNode* fast = head;
+        ListNode* slow = head;
+        while(fast!=NULL && fast-> next!=NULL){
+            slow = slow-> next;
+            fast = fast-> next-> next;
+        }
+        if(fast!=NULL)
+        slow = slow-> next;
+        //reversing from middle to last node
+        ListNode* prev = NULL;
+        ListNode* notun = NULL;
+        while(slow){
+            notun = slow-> next;
+            slow-> next = prev;
+            prev = slow;
+            slow = notun;
+        }
+            slow = prev;
+            fast = head;
+            //comparing values from first to middle nodes and reversed nodes
+            while(slow){
+                if(slow-> val!=fast-> val)
+                return false;
+                slow = slow-> next;
+                fast = fast-> next;
+            }
+            return true;
+    }
+};*/
+// 7. reverse of a singly linked list
+/*struct ListNode* reverseList(struct ListNode* head) {
+   struct ListNode* prev = NULL;
+   struct ListNode* notun = NULL;
+    if(head==NULL)
+    printf("Linked list is empty\n");
+    while(head){
+        notun = head-> next;
+        head-> next = prev;
+        prev = head;
+        head = notun;
+    }
+    head = prev;
+    return head;
+}*/
+// 8. intersection of two singly linked lists
+/*ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        ListNode* ptr1 = ptr1;
+        ListNode* ptr2 = ptr2;
+        int len1 = getListLength(ptr1);
+        int len2 = getListLength(ptr2);
+        if(len1>len2){
+            len1--;
+            ptr1 = ptr1-> next;
+        }
+        if(len1<len2){
+            len2--;
+            ptr2 = ptr2-> next;
+        }
+        while(ptr1!=ptr2){
+            ptr1 = ptr1-> next;
+            ptr2 = ptr2-> next;
+        }
+        return ptr1;
+    }
+     int getListLength(ListNode* head){
+        int count=0;
+        if(head == NULL)
+        cout << "Linked list is empty\n";
+        else{
+            ListNode* ptr = head;
+            while(ptr){
+                count++;
+                ptr=ptr-> next;
+            }
+        }
+        return count;
+    } */
