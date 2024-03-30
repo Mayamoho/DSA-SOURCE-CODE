@@ -1,5 +1,6 @@
-#include <bits/stdc++.h>
+/*#include <bits/stdc++.h>
 using namespace std;
+// special permutation
 /*void func(int cur[], int l , int n){
     if(l==n){
         for(int i=0; i<n; i++){
@@ -198,10 +199,91 @@ void printCombination(int arr[], int n, int r)
 	int data[r];
 	combinationUtil(arr, data, 0, n-1, 0, r); 
 } */
-int main() 
+// upper and lower bound in binary search
+/*int lowerbound(int a[], int low, int high, int key){
+    int mid;
+    while(high-low>1){
+        mid = low + (high-low)/2;
+        if(a[mid]<key)
+        low = mid + 1;
+        else{
+            high = mid;
+        }
+    }
+    if(a[low]>=key)
+    return low;
+    if(a[high]>=key)
+    return high;
+    return -1;
+}
+int upperbound(int a[], int low, int high, int key){
+    int mid;
+    while(high-low>1){
+        mid = low + (high-low)/2;
+        if(a[mid]<=key)
+        low = mid + 1;
+        else{
+            high = mid;
+        }
+    }
+    if(a[low]>key)
+    return low;
+    if(a[high]>key)
+    return high;
+    return -1;
+}
+*/
+// nth root of a number using binary search
+/*double eps = 1e-6;
+double multiply(double mid, int n){
+    double ans = 1;
+    for(int i=0; i<n; i++){
+        ans *= mid;
+    }
+    return ans;
+}
+*/
+/*int main() 
 { 
+    double x;
+    int n;
+    cin >> x >> n;
+    double low = 1, high = x, mid;
+    while(high-low>eps){
+        mid = low + (high - low)/2;
+        if(multiply(mid, n) <x)
+        low = mid;
+        else
+        high = mid;
+    }
 	/*int arr[] = {1, 2, 3, 4, 5}; 
 	int r = 3; 
 	int n = sizeof(arr)/sizeof(arr[0]); 
 	printCombination(arr, n, r); */
-} 
+    //int a[] = {2,3,4,6,7,8};
+    //int res = lowerbound(a,0,6,6);
+    //int result = upperbound(a,0,6,6);
+    //cout << a[res] << ' ' << res << '\n';
+    //cout << a[result] << ' ' << result << '\n';
+    //cout << low << '\n';
+    //}
+// search insert position
+/*int searchInsert(vector<int>& nums, int target) {
+        int low = 0, high = nums.size()-1;
+        int mid;
+        while(low<=high){
+             mid = low + (high - low)/2;
+            if(target == nums[mid])
+                return mid;
+            else if(target<nums[mid])
+                high = mid - 1;
+            else
+                low = mid + 1;
+        }
+             if(target<nums[mid])
+                return mid;
+            else
+                return mid + 1;
+            
+    }
+    */
